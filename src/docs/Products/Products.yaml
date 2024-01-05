@@ -1,0 +1,215 @@
+paths:
+  /api/products:
+    get:
+      summary: Obtiene los productos
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Los productos fueron obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/Product"
+        "404":
+          description: No existen productos
+        "500":
+          description: Error interno del servidor
+    post:
+      security:
+        - cookieAuth: []
+      summary: Crea un producto
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/AddProduct"
+      responses:
+        "201":
+          description: El producto se creo correctamente
+        "401":
+          description: Error de autenticación
+        "409":
+          description: Código del producto duplicado
+        "422":
+          description: Error de validación de datos
+        "500":
+          description: Error interno del servidor
+  /api/products/{pid}:
+    get:
+      summary: Obtiene un producto por su ID
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: El producto fue obtenido correctamente
+        "404":
+          description: Producto no encontrado
+        "500":
+          description: Error interno del servidor
+    put:
+      security:
+        - cookieAuth: []
+      summary: Actualiza un producto por su ID
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/UpdateProduct"
+      responses:
+        "200":
+          description: El producto fue actualizado correctamente
+        "401":
+          description: Error de autenticación
+        "404":
+          description: Producto no encontrado
+        "422":
+          description: Error de validación de datos o el producto no le pertenece
+        "500":
+          description: Error interno del servidor
+    delete:
+      security:
+        - cookieAuth: []
+      summary: Elimina un producto por su ID
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: El producto fue eliminado correctamente
+        "401":
+          description: Error de autenticación
+        "404":
+          description: Producto no encontrado
+        "422":
+          description: El producto no le pertenece
+        "500":
+          description: Error interno del servidor
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: ID autogenerado por MongoDB
+        title:
+          type: String
+          description: Título del producto
+        description:
+          type: String
+          description: Descripción del producto
+        price:
+          type: Number
+          description: Precio del producto
+        stock:
+          type: Number
+          description: Stock del producto
+        thumbnails:
+          type: Array
+          description: Imágenes del producto
+        code:
+          type: String
+          description: Código del producto
+        category:
+          type: String
+          description: Categoría del producto
+        status:
+          type: Boolean
+          description: Estado del producto
+        owner:
+          type: String
+          description: Propietario del producto
+      example:
+        _id: ObjectId("64fca344bc7da40deee9e304")
+        title: Producto 1
+        description: Descripción del Producto 1
+        price: 19.99
+        stock: 68
+        thumbnails: []
+        code: P0001
+        category: Electrónica
+        status: true
+        owner: admin
+  requestBodies:
+    AddProduct:
+      type: object
+      properties:
+        title:
+          type: String
+          description: Título del producto
+        description:
+          type: String
+          description: Descripción del producto
+        price:
+          type: Number
+          description: Precio del producto
+        stock:
+          type: Number
+          description: Stock del producto
+        code:
+          type: String
+          description: Código del producto
+        category:
+          type: String
+          description: Categoría del producto
+      example:
+        title: Producto doc
+        description: Descripción del Producto doc
+        price: 19.99
+        stock: 68
+        code: PDOC1
+        category: Electrónica
+    UpdateProduct:
+      type: object
+      properties:
+        title:
+          type: String
+          description: Título del producto
+        description:
+          type: String
+          description: Descripción del producto
+        price:
+          type: Number
+          description: Precio del producto
+        stock:
+          type: Number
+          description: Stock del producto
+        category:
+          type: String
+          description: Categoría del producto
+      example:
+        title: Producto doc actualizado
+        description: Descripción del Producto doc actualizado
+        price: 24.99
+        stock: 100
+        category: Hogar

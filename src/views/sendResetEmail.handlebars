@@ -1,0 +1,23 @@
+<link
+  rel='stylesheet'
+  type='text/css'
+  href='https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css'
+/>
+
+<h1>Restaura tu contraseña</h1>
+
+<section>
+  <h3>Ingrese su email y le enviaremos un correo para restaurar su contraseña</h3>
+  <form id='sendResetEmailForm'>
+    <label for='email'>Email</label>
+    <input type='email' name='email' id='email' required />
+    <input type='submit' id='submit' />
+    <p id='error' style='color: red;'></p>
+  </form>
+</section>
+
+<script
+  type='text/javascript'
+  src='https://cdn.jsdelivr.net/npm/toastify-js'
+></script>
+<script src='/static/js/sendResetEmail.js'></script>

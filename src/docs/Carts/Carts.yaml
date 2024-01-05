@@ -1,0 +1,281 @@
+paths:
+  /api/carts:
+    get:
+      summary: Obtiene los carritos
+      tags:
+        - Carts
+      responses:
+        '200':
+          description: Los carritos fueron obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Cart'
+        '404':
+          description: No existen carritos
+        '500':
+          description: Error interno del servidor
+    post:
+      summary: Crea un carrito
+      tags:
+        - Carts
+      responses:
+        '201':
+          description: El carrito se creo correctamente
+        '500':
+          description: Error interno del servidor
+  /api/carts/{cid}:
+    get:
+      summary: Obtiene un carrito por su ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito
+          schema:
+            $type: String
+      responses:
+        '200':
+          description: El carrito fue obtenido correctamente
+        '404':
+          description: No existe el carrito
+        '500':
+          description: Error interno del servidor
+    put:
+      security:
+        - cookieAuth: []
+      summary: Actualiza un carrito por su ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito
+          schema:
+            $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/UpdateCart'
+      responses:
+        '200':
+          description: El carrito fue actualizado correctamente
+        "401":
+          description: Error de autenticación
+        '404':
+          description: No existe el carrito o el producto
+        '422':
+          description: Error de validación de datos
+        '500':
+          description: Error interno del servidor
+    delete:
+      security:
+        - cookieAuth: []
+      summary: Elimina todos los productos de un carrito por su ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito
+          schema:
+            $type: String
+      responses:
+        '200':
+          description: Los productos fueron eliminados correctamente del carrito
+        "401":
+          description: Error de autenticación
+        '404':
+          description: No existe el carrito
+        '500':
+          description: Error interno del servidor
+  /api/carts/{cid}/products/{pid}:
+    post:
+      security:
+        - cookieAuth: []
+      summary: Agrega un producto por su ID a un carrito por su ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito
+          schema:
+            $type: String
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            $type: String
+      responses:
+        '200':
+          description: El producto fue agregado correctamente al carrito
+        "401":
+          description: Error de autenticación
+        '404':
+          description: No existe el carrito o el producto
+        '422':
+          description: El producto le pertenece y no puede agregarlo a su carrito
+        '500':
+          description: Error interno del servidor
+    put:
+      security:
+        - cookieAuth: []
+      summary: Actualiza la cantidad de un producto por su ID de un carrito por su ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito
+          schema:
+            $type: String
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/UpdateProductQuantityInCart'
+      responses:
+        '200':
+          description: El producto fue actualizado correctamente en el carrito
+        "401":
+          description: Error de autenticación
+        '404':
+          description: No existe el carrito o el producto
+        '422':
+          description: Error de validación de datos
+        '500':
+          description: Error interno del servidor
+    delete:
+      security:
+        - cookieAuth: []
+      summary: Elimina un producto por su ID de un carrito por su ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito
+          schema:
+            $type: String
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            $type: String
+      responses:
+        '200':
+          description: El producto fue eliminado correctamente del carrito
+        "401":
+          description: Error de autenticación
+        '404':
+          description: No existe el carrito o el producto
+        '500':
+          description: Error interno del servidor
+  /api/carts/{cid}/purchase:
+    get:
+      security:
+        - cookieAuth: []
+      summary: Finaliza la compra de un carrito por su ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito
+          schema:
+            $type: String
+      responses:
+        '200':
+          description: La compra finalizo correctamente
+        "401":
+          description: Error de autenticación
+        '404':
+          description: No existe el carrito
+        '500':
+          description: Error interno del servidor
+
+components:
+  schemas:
+    Cart:
+      type: array
+      properties:
+        _id:
+          type: ObjectId
+          description: ID autogenerado por MongoDB
+        products:
+          type: Array
+          description: Productos dentro del carrito
+      example:
+        _id: ObjectId("64fda47eecb725fd4fc1639a")
+        products:
+          [
+            {
+              '_id':
+                {
+                  'owner': 'admin',
+                  '_id': '64fca344bc7da40deee9e335',
+                  'title': 'Producto 50',
+                  'description': 'Descripción del Producto 50',
+                  'price': 17.99,
+                  'stock': 0,
+                  'thumbnails': [],
+                  'code': 'P0050',
+                  'category': 'Ropa',
+                  'status': true
+                },
+              'quantity': 1
+            }
+          ]
+  requestBodies:
+    UpdateCart:
+      type: Array
+      items:
+        type: Object
+        properties:
+          _id:
+            type: String
+            description: ID del producto
+          quantity:
+            type: Number
+            description: Cantidad del producto
+      example:
+        [
+          {
+            "_id": "64fca344bc7da40deee9e304",
+            "quantity": 2
+          },
+          {
+            "_id": "64fca344bc7da40deee9e305",
+            "quantity": 4
+          }
+        ]
+    UpdateProductQuantityInCart:
+      type: object
+      properties:
+        quantity:
+          type: Number
+          description: Cantidad a actualizar del producto
+      example:
+        quantity: 5
