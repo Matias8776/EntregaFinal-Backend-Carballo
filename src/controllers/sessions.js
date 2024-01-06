@@ -8,7 +8,7 @@ import {
   sendPasswordEmail
 } from '../utils.js';
 import config from '../config/config.js';
-import UserDTO from '../dao/DTOs/Users.js';
+import { UserDTO } from '../dao/DTOs/Users.js';
 import response from '../services/res/response.js';
 import jwt from 'jsonwebtoken';
 
@@ -86,28 +86,30 @@ export const register = async (req, res) => {
 };
 
 export const failRegister = (req, res) => {
-  res
-    .status(401)
-    .send({
-      status: 'error',
-      message: 'El usuario ya existe con ese email o faltan datos'
-    });
+  res.status(401).send({
+    status: 'error',
+    message: 'El usuario ya existe con ese email o faltan datos'
+  });
 };
 
 export const logout = async (req, res) => {
-  await usersModel.findOneAndUpdate(
-    { email: req.session.user.email },
-    { $set: { last_connection: new Date() } },
-    { new: true }
-  );
-  req.session.destroy((err) => {
-    if (err) {
-      console.error('Error al destruir la sesión:', err);
-    }
-    res.clearCookie('coderCookie');
-    res.clearCookie('connect.sid');
+  if (req.session.user) {
+    await usersModel.findOneAndUpdate(
+      { email: req.session.user.email },
+      { $set: { last_connection: new Date() } },
+      { new: true }
+    );
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Error al destruir la sesión:', err);
+      }
+      res.clearCookie('coderCookie');
+      res.clearCookie('connect.sid');
+      res.redirect('/');
+    });
+  } else {
     res.redirect('/');
-  });
+  }
 };
 
 export const github = async (req, res) => {};
@@ -154,11 +156,17 @@ export const resetPassword = async (req, res) => {
     return res.status(400).send({ status: 'error', message: 'Faltan datos' });
   }
   if (password !== comparePassword) {
-    return res.status(400).send({ status: 'error', message: 'Las contraseñas ingresadas no coinciden' });
+    return res.status(400).send({
+      status: 'error',
+      message: 'Las contraseñas ingresadas no coinciden'
+    });
   }
   const user = await usersModel.findOne({ email });
   if (isValidPassword(user, password)) {
-    return res.status(400).send({ status: 'error', message: 'Ingrese una contraseña diferente a la anterior' });
+    return res.status(400).send({
+      status: 'error',
+      message: 'Ingrese una contraseña diferente a la anterior'
+    });
   }
   const passwordHash = createHash(password);
   await usersModel.updateOne({ email }, { $set: { password: passwordHash } });

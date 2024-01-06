@@ -33,57 +33,6 @@ const storage = multer.diskStorage({
 
 export const upload = multer({ storage });
 
-// const documentStorage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, `${__dirname}/public/documents`);
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, `${Date.now()}-${file.originalname}`);
-//   }
-// });
-
-// const profileStorage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, `${__dirname}/public/profiles`);
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, `${Date.now()}-${file.originalname}`);
-//   }
-// });
-
-// const productStorage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, `${__dirname}/public/products`);
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, `${Date.now()}-${file.originalname}`);
-//   }
-// });
-
-// export const documentUploader = multer({
-//   documentStorage,
-//   onError: function (err, next) {
-//     console.error(err);
-//     next();
-//   }
-// });
-
-// export const profileUploader = multer({
-//   profileStorage,
-//   onError: function (err, next) {
-//     console.error(err);
-//     next();
-//   }
-// });
-
-// export const productUploader = multer({
-//   productStorage,
-//   onError: function (err, next) {
-//     console.error(err);
-//     next();
-//   }
-// });
-
 export const createHash = (password) =>
   bcrypt.hashSync(password.toString(), bcrypt.genSaltSync(10));
 
@@ -185,6 +134,21 @@ export const sendPasswordEmail = async (to, link) => {
       <a href=${link}>
         <button>Restaurar</button>
       </a>
+    </section>
+    `
+  });
+};
+
+export const sendDeleteProductEmail = async (to, product) => {
+  await transport.sendMail({
+    from: `Ecommerce <${config.email}>`,
+    to: `${to}`,
+    subject: 'Producto eliminado',
+    html: `
+    <section>
+      <h1>Se ha eliminado un producto</h1>
+      <h3>Se elimino exitosamente el siguiente producto:</h3>
+      <p>${product}</p>
     </section>
     `
   });

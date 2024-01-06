@@ -1,9 +1,13 @@
 import { Router } from 'express';
-import { addDocuments, changeRole, deleteUser, uploaderDocuments } from '../controllers/users.js';
+import { addDocuments, changeRole, deleteInactiveUsers, deleteUser, getUsers, passportAdmin, uploaderDocuments } from '../controllers/users.js';
 
 const router = Router();
 
+router.get('/', getUsers);
+
 router.get('/premium/:uid', changeRole);
+
+router.delete('/', passportAdmin, deleteInactiveUsers);
 
 router.delete('/:uid', deleteUser);
 

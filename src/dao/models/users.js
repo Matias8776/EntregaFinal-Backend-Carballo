@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre('find', function (next) {
-  this.populate('carts._id');
+  this.populate('cart');
   next();
 });
 

@@ -1,5 +1,5 @@
 import { Products } from '../dao/factory.js';
-import __dirname, { passportCall, upload } from '../utils.js';
+import __dirname, { passportCall, sendDeleteProductEmail, upload } from '../utils.js';
 import path from 'path';
 import CustomError from '../services/errors/CustomError.js';
 import EErrors from '../services/errors/enums.js';
@@ -81,7 +81,7 @@ export const addProduct = async (req, res, next) => {
     });
   }
   if (req.session.user.role === 'premium') {
-    owner = req.session.passport.user;
+    owner = req.session.user.email;
   }
 
   if (
@@ -142,7 +142,7 @@ export const addProduct = async (req, res, next) => {
 export const updateProduct = async (req, res, next) => {
   const pid = req.params.pid;
   const product = await productManager.getProductById(pid);
-  const owner = req.session.passport.user;
+  const owner = req.session.user.email;
 
   if (!product) {
     const error = new CustomError({
@@ -195,7 +195,7 @@ export const updateProduct = async (req, res, next) => {
 export const deleteProduct = async (req, res, next) => {
   const pid = req.params.pid;
   const product = await productManager.getProductById(pid);
-  const owner = req.session.passport.user;
+  const owner = req.session.user.email;
 
   if (!product) {
     const error = new CustomError({
@@ -215,6 +215,7 @@ export const deleteProduct = async (req, res, next) => {
     next(error);
   } else {
     await productManager.deleteProduct(product._id);
+    await sendDeleteProductEmail(product.owner, product.title);
     response(res, 200, `Se elimino el producto con el id ${pid}`);
   }
 };
