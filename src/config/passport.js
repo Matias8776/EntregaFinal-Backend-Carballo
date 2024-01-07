@@ -19,7 +19,7 @@ const initializePassport = () => {
       { passReqToCallback: true, usernameField: 'email', session: false },
       async (req, username, password, done) => {
         try {
-          const { first_name, last_name, email, age, role } = req.body;
+          const { first_name, last_name, email, age } = req.body;
           if (!first_name || !last_name || !email || !age || !password) {
             return done(null, false, {
               message: 'Faltan datos'
@@ -38,8 +38,7 @@ const initializePassport = () => {
             email,
             age,
             password: createHash(password),
-            cart: cart._id,
-            role
+            cart: cart._id
           };
           const result = await usersModel.create(newUser);
           return done(null, result);
