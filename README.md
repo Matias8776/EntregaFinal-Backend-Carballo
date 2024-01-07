@@ -1,4 +1,4 @@
-# Entregable 15
+# EntregaFinal-Backend-Carballo
 
 &nbsp;
 
@@ -6,8 +6,8 @@
 
 ###
 
-- git clone https://github.com/Matias8776/Entregable15.git
-- cd Entregable15
+- git clone https://github.com/Matias8776/EntregaFinal-Backend-Carballo.git
+- cd EntregaFinal-Backend-Carballo
 - npm i
 - npm start
 
