@@ -26,6 +26,7 @@ const mongoURL = config.mongoUrl;
 const PORT = config.port;
 const logger = config.logger === 'DEV' ? devLogger : prodLogger;
 const app = express();
+const URL = config.url;
 
 app.use(addLogger);
 app.use(express.urlencoded({ extended: true }));
@@ -88,7 +89,7 @@ app.use('/', viewsRouter);
 app.use(errorHandler);
 
 const server = app.listen(PORT, () => {
-  logger.info(`Servidor ON http://localhost:${PORT}`);
+  logger.info(`Servidor ON ${URL}:${PORT}`);
 });
 
 const io = new Server(server);

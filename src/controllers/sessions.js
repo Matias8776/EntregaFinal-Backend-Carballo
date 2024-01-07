@@ -13,6 +13,8 @@ import response from '../services/res/response.js';
 import jwt from 'jsonwebtoken';
 
 const PRIVATE_KEY = config.passportSecret;
+const URL = config.url;
+const PORT = config.port;
 
 export const passportLogin = passport.authenticate('login', {
   failureRedirect: '/api/sessions/faillogin',
@@ -144,7 +146,7 @@ export const sendResetEmail = async (req, res) => {
       .send({ status: 'error', message: 'No existe el usuario' });
   }
   const token = jwt.sign({ user }, PRIVATE_KEY, { expiresIn: '1h' });
-  const link = `http://localhost:8080/resetpassword/${email}?token=${token}`;
+  const link = `${URL}:${PORT}/resetpassword/${email}?token=${token}`;
   await sendPasswordEmail(email, link);
   response(res, 200, 'Email enviado correctamente');
 };
