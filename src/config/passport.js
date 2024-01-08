@@ -12,7 +12,7 @@ const cartManager = new Carts();
 const LocalStrategy = local.Strategy;
 const JWTStrategy = jwt.Strategy;
 const ExtractJWT = jwt.ExtractJwt;
-const initializePassport = () => {
+const initializePassport = async () => {
   passport.use(
     'register',
     new LocalStrategy(
