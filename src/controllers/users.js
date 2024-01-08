@@ -5,7 +5,7 @@ import CustomError from '../services/errors/CustomError.js';
 import EErrors from '../services/errors/enums.js';
 import { ChangeRolError, notFoundUserError } from '../services/errors/info.js';
 import response from '../services/res/response.js';
-import { passportCall, upload } from '../utils.js';
+import { passportCall, sendDeleteUserAdminEmail, sendDeleteUserEmail, upload } from '../utils.js';
 import { UsersDTO } from '../dao/DTOs/Users.js';
 
 export const passportAdmin = passportCall('admin');
@@ -56,7 +56,7 @@ export const changeRole = async (req, res, next) => {
       await user.save();
       response(res, 200, user.role);
     } else {
-      if (user.role === 'user' && user.status === true) {
+      if (user.role === 'user' && (user.status === true || req.session.user.role === 'admin')) {
         user.role = 'premium';
         await user.save();
         response(res, 200, user.role);
@@ -96,6 +96,7 @@ export const deleteInactiveUsers = async (req, res, next) => {
 
       if (timeDifference > twoDays) {
         deletedUsers.push(user.email);
+        await sendDeleteUserEmail(user.email);
         await cartsModel.findByIdAndDelete(user.cart);
         await usersModel.findByIdAndDelete(user._id);
       }
@@ -121,6 +122,7 @@ export const deleteUser = async (req, res, next) => {
   } else {
     const cid = user.cart;
     try {
+      await sendDeleteUserAdminEmail(user.email);
       await cartsModel.findByIdAndDelete(cid);
       await usersModel.findByIdAndDelete(uid);
       response(res, 200, 'Usuario eliminado');

@@ -93,10 +93,17 @@ const server = app.listen(PORT, () => {
 
 const io = new Server(server);
 
+const usuariosConectados = {};
+
 io.on('connection', (socket) => {
   logger.debug('Cliente conectado');
   socket.on('disconnect', () => {
     logger.debug('Cliente desconectado');
+    if (socket.id in usuariosConectados) {
+      const usuarioDesconectado = usuariosConectados[socket.id];
+      socket.broadcast.emit('userDisconnected', usuarioDesconectado);
+      delete usuariosConectados[socket.id];
+    }
   });
 
   socket.emit('server:updatedProducts');
@@ -104,8 +111,14 @@ io.on('connection', (socket) => {
     io.emit('server:updatedProducts');
   });
 
-  socket.on('nuevousuario', async (usuario) => {
-    socket.broadcast.emit('broadcast', usuario);
+  socket.emit('server:updatedUsers');
+  socket.on('client:updateUser', () => {
+    io.emit('server:updatedUsers');
+  });
+
+  socket.on('nuevousuario', async (nombreUsuario) => {
+    usuariosConectados[socket.id] = nombreUsuario;
+    socket.broadcast.emit('broadcast', nombreUsuario);
     socket.emit('chat', await messagesManager.getMessages());
   });
   socket.on('mensaje', async (info) => {

@@ -12,6 +12,17 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+#nav-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  padding-top: 15px;
+}
+
 #chat-messages {
   height: 65vh;
   overflow-y: scroll;

@@ -10,6 +10,7 @@ export class UserDTO {
 
 export class UsersDTO {
   constructor (user) {
+    this.id = user.id;
     this.name = user.name.replace(/\b\w/g, (l) => l.toUpperCase());
     this.email = user.email;
     this.role = user.role.replace(/\b\w/g, (l) => l.toUpperCase());

@@ -80,6 +80,7 @@ export const addProduct = async (req, res, next) => {
       return path.join(__dirname, '/public/products/', file.filename);
     });
   }
+
   if (req.session.user.role === 'premium') {
     owner = req.session.user.email;
   }
@@ -214,8 +215,8 @@ export const deleteProduct = async (req, res, next) => {
     });
     next(error);
   } else {
-    await productManager.deleteProduct(product._id);
     await sendDeleteProductEmail(product.owner, product.title);
+    await productManager.deleteProduct(product._id);
     response(res, 200, `Se elimino el producto con el id ${pid}`);
   }
 };

@@ -1,0 +1,44 @@
+<h1>Panel de administrador</h1>
+
+<section class='usuario'>
+  <div>
+    <p>Nombre: {{user.name}}</p>
+    <p>Email: {{user.email}}</p>
+    <p>Rol: {{user.role}}</p>
+  </div>
+  <div>
+    <a href='/products'>Productos</a>
+    <a href='/api/sessions/logout'>Logout</a>
+  </div>
+</section>
+
+<section>
+  <div class='form'>
+    <h2>Cambiar rol usuario</h2>
+
+    <form id='changeRoleUserForm'>
+      <label for='id'>Id:</label>
+      <input name='id' id='id' />
+
+      <button type='submit' id='submitChng'>Cambiar rol usuario</button>
+      <p id='errorChange' style='color: red;'></p>
+    </form>
+  </div>
+
+  <div class='form'>
+    <h2>Eliminar usuario</h2>
+
+    <form id='deleteUserForm'>
+      <label for='id'>Id:</label>
+      <input name='id' id='id' />
+
+      <button type='submit' id='submitDel'>Eliminar usuario</button>
+      <p id='errorDelete' style='color: red;'></p>
+    </form>
+  </div>
+</section>
+
+<ul id='usersContainer'></ul>
+
+<script src='/socket.io/socket.io.js'></script>
+<script src='/static/js/adminPanel.js'></script>

@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import {
+  adminPanel,
   cart,
   chat,
   login,
@@ -31,13 +32,15 @@ router.get('/chat', privateAccess, passportUser, chat);
 
 router.get('/products', privateAccess, products);
 
+router.get('/sendresetemail', publicAccess, sendResetEmail);
+
 router.get('/products/:pid', privateAccess, product);
 
 router.get('/carts/:cid', privateAccess, cart);
 
-router.get('/sendresetemail', publicAccess, sendResetEmail);
-
 router.get('/resetpassword/:email', publicAccess, verifyToken, resetPassword);
+
+router.get('/adminPanel', privateAccess, passportAdmin, adminPanel);
 
 router.use(notFound);
 

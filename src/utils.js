@@ -134,6 +134,8 @@ export const sendPasswordEmail = async (to, link) => {
       <a href=${link}>
         <button>Restaurar</button>
       </a>
+      <br>
+      <p>Ecommerce</p>
     </section>
     `
   });
@@ -149,6 +151,38 @@ export const sendDeleteProductEmail = async (to, product) => {
       <h1>Se ha eliminado un producto</h1>
       <h3>Se elimino exitosamente el siguiente producto:</h3>
       <p>${product}</p>
+      <br>
+      <p>Ecommerce</p>
+    </section>
+    `
+  });
+};
+
+export const sendDeleteUserEmail = async (to) => {
+  await transport.sendMail({
+    from: `Ecommerce <${config.email}>`,
+    to: `${to}`,
+    subject: 'Usuario eliminado',
+    html: `
+    <section>
+      <h1>Se ha eliminado su usuario por inactividad</h1>
+      <br>
+      <p>Ecommerce</p>
+    </section>
+    `
+  });
+};
+
+export const sendDeleteUserAdminEmail = async (to) => {
+  await transport.sendMail({
+    from: `Ecommerce <${config.email}>`,
+    to: `${to}`,
+    subject: 'Usuario eliminado',
+    html: `
+    <section>
+      <h1>Se ha eliminado su usuario por el administrador</h1>
+      <br>
+      <p>Ecommerce</p>
     </section>
     `
   });

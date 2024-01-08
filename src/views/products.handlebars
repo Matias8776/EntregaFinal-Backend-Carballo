@@ -7,8 +7,14 @@
     <p>Rol: {{user.role}}</p>
   </div>
   <div>
-    <a href='carts/{{cart}}'>Carrito</a>
-    <a href='api/sessions/logout'>Logout</a>
+    {{#if isAdmin}}
+      <a href='/adminPanel'>Panel de administrador</a>
+      <a href='api/sessions/logout'>Logout</a>
+    {{else}}
+      <a href='carts/{{cart}}'>Carrito</a>
+      <a href='/chat'>Chat</a>
+      <a href='api/sessions/logout'>Logout</a>
+    {{/if}}
   </div>
 </section>
 

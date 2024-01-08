@@ -63,6 +63,7 @@ export const realtimeproducts = (req, res) => {
 
 export const chat = (req, res) => {
   res.render('chat', {
+    email: req.session.user.email,
     style: 'chat.css',
     title: 'Ecommerce - Chat'
   });
@@ -94,8 +95,17 @@ export const products = async (req, res) => {
     return;
   }
 
+  let isAdmin;
+
+  if (req.session.user.role === 'admin') {
+    isAdmin = true;
+  } else {
+    isAdmin = false;
+  }
+
   const plainProducts = await viewsProducts(products);
   res.render('products', {
+    isAdmin,
     cart: req.session.user.cart,
     products,
     plainProducts,
@@ -108,6 +118,10 @@ export const products = async (req, res) => {
 export const product = async (req, res) => {
   const pid = req.params.pid;
   const plainProduct = await productManager.getProductById(pid);
+  if (!plainProduct) {
+    res.render('404', { style: '404.css', title: 'Ecommerce - 404' });
+    return;
+  };
   res.render('product', {
     cart: req.session.user.cart,
     user: req.session.user,
@@ -120,6 +134,10 @@ export const product = async (req, res) => {
 export const cart = async (req, res) => {
   const cid = req.params.cid;
   const cart = await cartManager.getCartById(cid);
+  if (!cart) {
+    res.render('404', { style: '404.css', title: 'Ecommerce - 404' });
+    return;
+  };
   const plainProducts = await cartProducts(cart);
   res.render('carts', {
     cart: req.session.user.cart,
@@ -143,6 +161,14 @@ export const resetPassword = (req, res) => {
     email,
     style: 'resetPassword.css',
     title: 'Ecommerce - Restaurar contraseña'
+  });
+};
+
+export const adminPanel = (req, res) => {
+  res.render('adminPanel', {
+    user: req.session.user,
+    style: 'adminPanel.css',
+    title: 'Ecommerce - Panel de administrador'
   });
 };
 

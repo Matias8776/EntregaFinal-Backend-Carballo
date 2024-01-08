@@ -8,24 +8,15 @@ const container = document.getElementById('chat-messages');
 
 let usuario = null;
 
-if (!usuario) {
-  Swal.fire({
-    title: 'Bienvenido al chat',
-    text: 'Ingresa tu usuario',
-    input: 'text',
-    inputValidator: (value) => {
-      if (!value) {
-        return 'Necesitas ingresar tu Nombre';
-      }
-    },
-    allowOutsideClick: false,
-    allowEscapeKey: false
-  }).then((username) => {
-    usuario = username.value;
-    nombreUsuario.innerHTML = usuario;
-    socket.emit('nuevousuario', usuario);
-  });
-}
+Swal.fire({
+  title: 'Bienvenido al chat',
+  text: nombreUsuario.textContent,
+  allowOutsideClick: false,
+  allowEscapeKey: false
+}).then(() => {
+  usuario = nombreUsuario.textContent;
+  socket.emit('nuevousuario', usuario);
+});
 
 formulario.onsubmit = (e) => {
   e.preventDefault();
@@ -54,6 +45,18 @@ socket.on('chat', (mensaje) => {
 socket.on('broadcast', (usuario) => {
   Toastify({
     text: `${usuario} ingreso al chat`,
+    duration: 3000,
+    gravity: 'bottom',
+    position: 'center',
+    style: {
+      background: '#808080'
+    }
+  }).showToast();
+});
+
+socket.on('userDisconnected', (usuarioDesconectado) => {
+  Toastify({
+    text: `${usuarioDesconectado} se ha desconectado`,
     duration: 3000,
     gravity: 'bottom',
     position: 'center',

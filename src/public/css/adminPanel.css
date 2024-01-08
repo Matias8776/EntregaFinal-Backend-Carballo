@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  height: 100%;
+}
+
+h1 {
+  color: #999999;
+  text-align: center;
+  margin: 20px;
+}
+
+#usersContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  color: #999999;
+  justify-content: center;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  color: #999999;
+}
+
+li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  min-height: 250px;
+  margin: 35px;
+  border: 1px solid #999999;
+  padding: 25px;
+  text-decoration: none;
+  color: #999999;
+  gap: 10px;
+}
+
+p {
+  color: #999999;
+}
+
+a {
+  color: #999999;
+  text-decoration: none;
+  padding: 5px;
+}
+
+.usuario {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 50px;
+}
+
+section {
+  display: flex;
+  justify-content: space-around;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
+  /* width: 50%; */
+  color: #999999;
+}
+
+label {
+  text-align: center;
+}
+
+input {
+  margin-bottom: 10px;
+}
+
+#submitChng {
+  /* width: 30%; */
+  margin: 20px auto;
+  cursor: pointer;
+}
+
+#submitDel {
+  /* width: 30%; */
+  margin: 20px auto;
+  cursor: pointer;
+}
+
+h2 {
+  color: #999999;
+  text-align: center;
+  margin: 20px;
+}
