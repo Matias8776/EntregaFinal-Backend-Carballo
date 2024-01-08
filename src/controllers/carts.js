@@ -210,7 +210,6 @@ export const updateCart = async (req, res, next) => {
   }
 
   if (errors.length > 0) {
-    console.log(errors);
     const error = new CustomError({
       name: 'Error al actualizar el carrito',
       cause: updateCartError(errors[0].id, errors[0].quantity),

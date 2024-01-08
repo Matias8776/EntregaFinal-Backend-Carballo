@@ -176,7 +176,6 @@ export const addDocuments = async (req, res, next) => {
         response(res, 400, 'Faltan documentos requeridos');
       }
     } catch (error) {
-      console.error(error);
       return { error: error.message };
     }
   }
