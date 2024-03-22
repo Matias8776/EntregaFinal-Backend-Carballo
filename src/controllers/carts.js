@@ -349,8 +349,9 @@ export const purchase = async (req, res, next) => {
 
   const ticket = {
     code: Date.now().toString(36) + Math.random().toString(36).substring(2, 7),
-    amount: parseFloat(totalPurchase.toFixed(2)),
-    purchaser: req.user.user.email
+    purchaser: req.user.user.email,
+    products: withStock,
+    amount: parseFloat(totalPurchase.toFixed(2))
   };
 
   await ticketModel.create(ticket);
