@@ -126,3 +126,5 @@ io.on('connection', (socket) => {
     io.emit('chat', await messagesManager.getMessages());
   });
 });
+
+export default app;
