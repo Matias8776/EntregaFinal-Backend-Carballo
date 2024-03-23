@@ -1,5 +1,10 @@
 import { Products } from '../dao/factory.js';
-import { passportCall, sendDeleteProductEmail, upload } from '../utils.js';
+import __dirname, {
+  passportCall,
+  sendDeleteProductEmail,
+  upload
+} from '../utils.js';
+import path from 'path';
 import CustomError from '../services/errors/CustomError.js';
 import EErrors from '../services/errors/enums.js';
 import {
@@ -76,10 +81,10 @@ export const addProduct = async (req, res, next) => {
   } = req.body;
 
   if (req.files.length === 0) {
-    thumbnails = '/static/img/sinImagen.jpg';
+    thumbnails = path.join(__dirname, '/public/img/sinImagen.jpg');
   } else {
     thumbnails = req.files.map((file) => {
-      return `/static/products/${file.filename}`;
+      return path.join(__dirname, '/public/products/', file.filename);
     });
   }
 
