@@ -1,6 +1,5 @@
 import { Products } from '../dao/factory.js';
-import __dirname, { passportCall, sendDeleteProductEmail, upload } from '../utils.js';
-import path from 'path';
+import { passportCall, sendDeleteProductEmail, upload } from '../utils.js';
 import CustomError from '../services/errors/CustomError.js';
 import EErrors from '../services/errors/enums.js';
 import {
@@ -32,6 +31,7 @@ export const getProducts = async (req, res, next) => {
     disponibility,
     sort
   );
+
   if (products.length === 0) {
     const error = new CustomError({
       name: 'No existen productos',
@@ -75,9 +75,11 @@ export const addProduct = async (req, res, next) => {
     owner
   } = req.body;
 
-  if (req.files) {
+  if (req.files.length === 0) {
+    thumbnails = '/static/img/sinImagen.jpg';
+  } else {
     thumbnails = req.files.map((file) => {
-      return path.join(__dirname, '/public/products/', file.filename);
+      return `/static/products/${file.filename}`;
     });
   }
 
@@ -116,11 +118,7 @@ export const addProduct = async (req, res, next) => {
       });
       next(error);
     } else {
-      response(
-        res,
-        201,
-        newProduct.product
-      );
+      response(res, 201, newProduct.product);
     }
   } else {
     const error = new CustomError({
