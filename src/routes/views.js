@@ -30,7 +30,7 @@ router.get('/realtimeproducts', passportAdmin, realtimeproducts);
 
 router.get('/chat', privateAccess, passportUser, chat);
 
-router.get('/products', privateAccess, products);
+router.get('/products', publicAccess, products);
 
 router.get('/sendresetemail', publicAccess, sendResetEmail);
 
