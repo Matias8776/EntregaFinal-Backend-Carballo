@@ -27,11 +27,8 @@ li {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 250px;
   margin: 35px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  max-width: 300px;
   border: 1px solid #999999;
   padding: 25px;
   text-decoration: none;
