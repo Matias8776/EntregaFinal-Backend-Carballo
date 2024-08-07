@@ -7,6 +7,7 @@
 body {
   background-color: black;
   height: 100%;
+  padding-bottom: 20px;
 }
 
 h1 {
@@ -42,8 +43,21 @@ input {
 
 #submit {
   width: 30%;
-  margin: 10px auto;
+  margin-top: 10px;
+  padding: 10px auto;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1320px) {
+  #submit {
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  #submit {
+    width: 100%;
+  }
 }
 
 p {

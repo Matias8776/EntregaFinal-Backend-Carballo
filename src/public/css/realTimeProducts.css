@@ -7,6 +7,7 @@
 body {
   background-color: black;
   height: 100%;
+  padding-bottom: 20px;
 }
 
 h1 {
@@ -110,4 +111,32 @@ a {
 .usuario {
   justify-content: space-between;
   padding: 0 50px;
+}
+
+@media only screen and (max-width: 1520px) {
+  #submitAdd {
+    width: 40%;
+  }
+
+  #submitDel {
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .usuario {
+    padding: 0 20px;
+  }
+
+  #submitAdd {
+    width: 100%;
+  }
+
+  #submitDel {
+    width: 100%;
+  }
+
+  #id {
+    width: 100%;
+  }
 }

@@ -2,6 +2,7 @@ body {
   font-family: Arial, sans-serif;
   background-color: black;
   height: 100%;
+  padding-bottom: 20px;
 }
 
 #chat-container {

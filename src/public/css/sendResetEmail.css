@@ -7,6 +7,7 @@
 body {
   background-color: black;
   height: 100%;
+  padding-bottom: 20px;
 }
 
 h1 {
@@ -46,6 +47,18 @@ input {
   cursor: pointer;
 }
 
+@media only screen and (max-width: 1320px) {
+  #submit {
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  #submit {
+    width: 100%;
+  }
+}
+
 p {
   display: flex;
   justify-content: center;
@@ -56,5 +69,5 @@ h3 {
   color:#999999;
   display: flex;
   justify-content: center;
-  margin: 2px;
+  text-align: center;
 }
