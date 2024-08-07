@@ -1,4 +1,9 @@
-import { Carts, Products, cartProducts, viewsProducts } from '../dao/factory.js';
+import {
+  Carts,
+  Products,
+  cartProducts,
+  viewsProducts
+} from '../dao/factory.js';
 import jwt from 'jsonwebtoken';
 import config from '../config/config.js';
 
@@ -121,7 +126,7 @@ export const product = async (req, res) => {
   if (!plainProduct) {
     res.render('404', { style: '404.css', title: 'Ecommerce - 404' });
     return;
-  };
+  }
   res.render('product', {
     cart: req.session.user.cart,
     user: req.session.user,
@@ -137,7 +142,7 @@ export const cart = async (req, res) => {
   if (!cart) {
     res.render('404', { style: '404.css', title: 'Ecommerce - 404' });
     return;
-  };
+  }
   const plainProducts = await cartProducts(cart);
   res.render('carts', {
     cart: req.session.user.cart,

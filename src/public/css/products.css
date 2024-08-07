@@ -21,6 +21,7 @@ h1 {
   align-items: center;
   color: #999999;
   justify-content: center;
+  text-align: center;
 }
 
 .product {
@@ -65,4 +66,8 @@ a {
   border: 1px solid #999999;
   background-color: #999999;
   border-radius: 5%;
+}
+
+.productImg {
+  width: 256px;
 }

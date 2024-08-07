@@ -21,6 +21,7 @@ h1 {
   align-items: center;
   color: #999999;
   justify-content: center;
+  text-align: center;
 }
 
 .product {
@@ -64,7 +65,8 @@ a {
   border-radius: 5%;
 }
 
-.clearButton, .purchaseButton {
+.clearButton,
+.purchaseButton {
   display: flex;
   justify-content: center;
   margin: 0 auto;
@@ -75,4 +77,8 @@ a {
   border-radius: 5%;
   padding: 5px;
   cursor: pointer;
+}
+
+.productImg {
+  width: 256px;
 }

@@ -42,6 +42,6 @@ router.get('/resetpassword/:email', publicAccess, verifyToken, resetPassword);
 
 router.get('/adminPanel', privateAccess, passportAdmin, adminPanel);
 
-// router.use(notFound);
+router.use(notFound);
 
 export default router;

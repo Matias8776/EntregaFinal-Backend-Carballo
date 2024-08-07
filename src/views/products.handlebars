@@ -22,6 +22,9 @@
   {{#each plainProducts}}
     <a href='/products/{{this._id}}' class='product'>
       <div>
+        <img src='{{this.thumbnails}}' class='productImg' />
+      </div>
+      <div>
         <strong>Id:</strong>
         {{this._id}}
       </div>
@@ -51,9 +54,17 @@
 
 <div class='paginate'>
   {{#if products.hasPrevPage}}
-    <a href='/products?page={{products.prevPage}}' id='prevPage' class='pageButton'>Anterior</a>
+    <a
+      href='/products?page={{products.prevPage}}'
+      id='prevPage'
+      class='pageButton'
+    >Anterior</a>
   {{/if}}
   {{#if products.hasNextPage}}
-    <a href='/products?page={{products.nextPage}}' id='nextPage' class='pageButton'>Siguiente</a>
+    <a
+      href='/products?page={{products.nextPage}}'
+      id='nextPage'
+      class='pageButton'
+    >Siguiente</a>
   {{/if}}
 </div>
