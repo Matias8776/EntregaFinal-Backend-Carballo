@@ -76,10 +76,10 @@ export const addProduct = async (req, res, next) => {
   } = req.body;
 
   if (!req.files || req.files.length === 0) {
-    thumbnails = '/static/img/sinImagen.jpg';
+    thumbnails = 'static/img/sinImagen.jpg';
   } else {
     thumbnails = req.files.map((file) => {
-      return `/static/products/${file.filename}`;
+      return `static/products/${file.filename}`;
     });
   }
 
