@@ -1,13 +1,14 @@
 <h1>Productos en tiempo real</h1>
 
-<section class='usuario'>
-  <div>
+<section class='header'>
+  <div class='usuario'>
     <p>Nombre: {{user.name}}</p>
     <p>Email: {{user.email}}</p>
     <p>Rol: {{user.role}}</p>
   </div>
-  <div>
-    <a href='carts/{{cart}}'>Carrito</a>
+  <div class='links'>
+    <a href='/adminPanel'>Panel de administrador</a>
+    <a href='/products'>Productos</a>
     <a href='api/sessions/logout'>Logout</a>
   </div>
 </section>

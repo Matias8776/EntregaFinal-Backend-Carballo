@@ -127,7 +127,17 @@ export const product = async (req, res) => {
     res.render('404', { style: '404.css', title: 'Ecommerce - 404' });
     return;
   }
+
+  let isAdmin;
+
+  if (req.session.user.role === 'admin') {
+    isAdmin = true;
+  } else {
+    isAdmin = false;
+  }
+
   res.render('product', {
+    isAdmin,
     cart: req.session.user.cart,
     user: req.session.user,
     plainProduct,

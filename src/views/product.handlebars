@@ -6,16 +6,22 @@
 
 <h1>{{plainProduct.title}}</h1>
 
-<section class='usuario'>
-  <div>
+<section class='header'>
+  <div class='usuario'>
     <p>Nombre: {{user.name}}</p>
     <p>Email: {{user.email}}</p>
     <p>Rol: {{user.role}}</p>
   </div>
-  <div>
-    <a href='/products'>Productos</a>
-    <a href='/carts/{{cart}}'>Carrito</a>
-    <a href='/api/sessions/logout'>Logout</a>
+  <div class='links'>
+    {{#if isAdmin}}
+      <a href='/adminPanel'>Panel de administrador</a>
+      <a href='/products'>Productos</a>
+      <a href='api/sessions/logout'>Logout</a>
+    {{else}}
+      <a href='/products'>Productos</a>
+      <a href='/carts/{{cart}}'>Carrito</a>
+      <a href='/api/sessions/logout'>Logout</a>
+    {{/if}}
   </div>
 </section>
 

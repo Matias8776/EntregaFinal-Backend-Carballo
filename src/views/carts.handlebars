@@ -6,14 +6,15 @@
 
 <h1>Carrito</h1>
 
-<section class='usuario'>
-  <div>
+<section class='header'>
+  <div class='usuario'>
     <p>Nombre: {{user.name}}</p>
     <p>Email: {{user.email}}</p>
     <p>Rol: {{user.role}}</p>
   </div>
-  <div>
+  <div class='links'>
     <a href='/products'>Productos</a>
+    <a href='/chat'>Chat</a>
     <a href='/api/sessions/logout'>Logout</a>
   </div>
 </section>

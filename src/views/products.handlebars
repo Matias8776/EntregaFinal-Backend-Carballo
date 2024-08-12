@@ -1,14 +1,15 @@
 <h1>Bienvenido</h1>
 
-<section class='usuario'>
-  <div>
+<section class='header'>
+  <div class='usuario'>
     <p>Nombre: {{user.name}}</p>
     <p>Email: {{user.email}}</p>
     <p>Rol: {{user.role}}</p>
   </div>
-  <div>
+  <div class='links'>
     {{#if isAdmin}}
       <a href='/adminPanel'>Panel de administrador</a>
+      <a href='/realtimeproducts'>Productos en tiempo real</a>
       <a href='api/sessions/logout'>Logout</a>
     {{else}}
       <a href='carts/{{cart}}'>Carrito</a>
