@@ -6,8 +6,12 @@
 
 body {
   background-color: black;
-  min-height: 100vh;
+  min-height: 100dvh;
   padding-bottom: 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
@@ -21,6 +25,7 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 form {
@@ -46,6 +51,7 @@ input {
   margin-top: 10px;
   padding: 10px auto;
   cursor: pointer;
+  font-size: 14px;
 }
 
 @media only screen and (max-width: 1320px) {
@@ -83,6 +89,7 @@ button {
   cursor: pointer;
   align-items: center;
   font-weight: bold;
+  font-size: 14px;
 }
 
 .githubContainer {
@@ -100,4 +107,20 @@ img {
 .error-list {
   list-style-type: none;
   color: red;
+}
+
+.testUser {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #999999;
+  margin-top: 50px;
+  border: 1px solid #999999;
+  border-radius: 25px;
+  padding: 25px;
+  width: fit-content;
+}
+
+.testUser pre {
+  font-family: inherit;
 }
